@@ -1,5 +1,3 @@
-"""Simulate primary-secondary replication using only the Python standard library."""
-
 import asyncio
 from contextlib import suppress
 from dataclasses import dataclass
