@@ -38,10 +38,10 @@ Pausing replication blocks delivery while the replicas continue accepting reads 
 
 | Scenario | Action | Primary read | Secondary read | Result |
 | --- | --- | --- | --- | --- |
-| Normal replication, before delivery | Write stock=10 to Primary; both started at 0 | 10 | 0 | Primary receives the update first |
+| Normal replication, before delivery | Write stock=10 to Primary, both started at 0 | 10 | 0 | Primary receives the update first |
 | Normal replication, after delivery | Wait for the queued update to finish | 10 | 10 | Successful replication |
-| Stale read | Pause replication; write 10 -> 9; wait 0.75 seconds | 9 | 10 | Secondary returns an older value |
-| Recovery and convergence | Resume replication; wait for delivery | 9 | 9 | Replicas agree again |
+| Stale read | Pause replication; write 10 -> 9, wait 0.75 seconds | 9 | 10 | Secondary returns an older value |
+| Recovery and convergence | Resume replication, wait for delivery | 9 | 9 | Replicas agree again |
 
 The stale-read observation occurs after a wait longer than the normal delivery delay, showing that the replication pause keeps the Secondary behind. The update remains queued for delivery. The program waits for the queue's work to finish before checking convergence, with a five-second timeout if delivery does not complete.
 
