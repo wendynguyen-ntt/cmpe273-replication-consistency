@@ -27,7 +27,7 @@ flowchart TD
     C[Client demo] -->|Write and read| P[Primary replica]
     C -->|Read| S[Secondary replica]
     P -->|Queue updates| Q[Replication queue]
-    Q -->|Background worker: delay, pause, resume| S
+    Q -->|Worker delivers update| S
 ```
 
 Both replicas are separate objects with independent stock values inside one Python process. `main()` acts as the client and selects which replica to read. An `asyncio` background task delivers updates in queue order with a simulated 0.5-second network delay. The Primary write returns before Secondary delivery completes.
